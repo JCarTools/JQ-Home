@@ -320,6 +320,12 @@ el('settings-close').addEventListener('click', () => el('settings-panel').classL
 el('btn-donate').addEventListener('click', () => { el('settings-panel').classList.remove('open'); el('donate-drawer').classList.add('open'); });
 el('donate-close').addEventListener('click', () => el('donate-drawer').classList.remove('open'));
 
+el('btnClose').addEventListener('click', () => {
+  if (window.androidApi && window.androidApi.onClose) {
+    window.androidApi.onClose(TOKEN);
+  }
+});
+
 // ── Сворачивание карточек ──────────────────────────────────
 const collapseState = loadLS('lite_collapse') || { climate: false, apps: false };
 const speedCollapse = loadLS('lite_speed_collapse') || { climate: true, apps: true };
