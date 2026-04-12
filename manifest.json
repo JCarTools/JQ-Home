@@ -1,6 +1,6 @@
 {
-  "id": "jq_lite",
-  "name": "JQ Lite",
+  "id": "jq_home",
+  "name": "JQ Home",
   "version": "1.0.0",
   "entry": "index.html"
 }

@@ -3,33 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JQ Lite</title>
+<title>JQ Home</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="bg"><canvas id="bg-canvas"></canvas></div>
+<div id="bg"></div>
 
 <div id="root">
-
-  <!-- Верх -->
   <div id="top">
-    <div id="top-left">
-      <button class="top-btn" id="btn-all-apps">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/>
-        </svg>
-      </button>
-      <button class="top-btn" id="btn-voice">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-        </svg>
-      </button>
-      <button class="top-btn" id="btn-settings">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96a7.02 7.02 0 0 0-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.48.48 0 0 0-.59.22L2.74 8.87a.47.47 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.47.47 0 0 0-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-        </svg>
-      </button>
+    <div id="weather-widget">
+      <div id="weather-main" class="weather-collapsed">
+        <div class="weather-row1">
+          <span id="w-icon">🌡️</span>
+          <span id="w-temp">—</span>
+        </div>
+        <div id="w-desc" class="weather-desc">—</div>
+        <div class="weather-row2"><span id="w-feels">Ощущается —</span></div>
+        <div class="weather-row3">
+          <span id="w-wind">💨 —</span>
+          <span id="w-humidity">💧 —</span>
+        </div>
+      </div>
+      <div id="weather-forecast" class="weather-forecast-hidden">
+        <div class="forecast-title">Прогноз на 6 часов</div>
+        <div id="forecast-hours"></div>
+      </div>
     </div>
     <div id="clock-block">
       <div id="clock">00:00</div>
@@ -37,67 +36,370 @@
     </div>
   </div>
 
-  <div id="middle"></div>
-
-  <!-- Нижние карточки -->
-  <div id="bottom">
-    <!-- Климат -->
-    <div class="card" id="card-climate">
-      <div class="card-header">
-        <div class="card-title">Климат</div>
-        <button class="collapse-btn" id="collapse-climate">−</button>
+  <div id="middle">
+    <div id="gesture-hint">
+      <div class="gesture-hint-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14l5-5 5 5z"/></svg>
+        <span>Настройки</span>
       </div>
-      <div class="card-body" id="body-climate">
-        <div class="climate-grid" id="climate-grid"></div>
-      </div>
-    </div>
-
-    <!-- Мои приложения -->
-    <div class="card" id="card-apps">
-      <div class="card-header">
-        <div class="card-title">Мои приложения</div>
-        <button class="collapse-btn" id="collapse-apps">−</button>
-      </div>
-      <div class="card-body" id="body-apps">
-        <div class="my-grid" id="my-grid"></div>
+      <div class="gesture-hint-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+        <span>Все приложения</span>
       </div>
     </div>
   </div>
 
-  <!-- Плеер -->
-  <div id="player-row">
-    <div id="player">
-      <img id="album-art" class="empty" src="img/Artist.png" alt="">
-      <div class="player-info">
-        <div id="track-title">Не воспроизводится</div>
-        <div id="track-artist">—</div>
-        <div class="player-progress-row">
-          <span class="player-time" id="time-cur">0:00</span>
-          <div class="player-progress-bar"><div class="player-progress-fill" id="progress-fill"></div></div>
-          <span class="player-time" id="time-dur">0:00</span>
+  <div id="bottom">
+
+
+    <!-- Карточки-экраны + боковые кнопки (landscape) -->
+    <div id="screens-and-sidebar">
+      <div id="screens-wrap">
+        <div id="screens-viewport"></div>
+      </div>
+      <!-- Боковая колонка кнопок — только в landscape -->
+      <div id="sidebar-btns">
+        <button class="sidebar-btn" id="btn-settings-side">
+          <img src="icons/Setting.svg">
+        </button>
+        <button class="sidebar-btn" id="btn-all-apps-side">
+          <img src="icons/Apps.svg">
+        </button>
+        <button class="sidebar-btn" id="btn-add-screen-side">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1 9h-5v5h-2v-5H6v-2h5V5h2v5h5v2z"/></svg>
+        </button>
+        <button class="sidebar-btn" id="btn-edit-screens-side">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </button>
+        <button class="sidebar-btn" id="btn-volume-side">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Нижняя строка: все кнопки управления + пагинация -->
+    <div id="bottom-bar">
+      <button class="bottom-action-btn" id="btn-settings">
+        <img src="icons/Setting.svg">
+        <span>Настройки</span>
+      </button>
+      <button class="bottom-action-btn" id="btn-all-apps">
+        <img src="icons/Apps.svg">
+        <span>Приложения</span>
+      </button>
+      <button class="bottom-action-btn" id="btn-add-screen">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-1 9h-5v5h-2v-5H6v-2h5V5h2v5h5v2z"/>
+        </svg>
+        <span>Экран</span>
+      </button>
+      <button class="bottom-action-btn" id="btn-edit-screens">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+        </svg>
+        <span>Изменить</span>
+      </button>
+      <button class="bottom-action-btn" id="btn-volume">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <span>Громкость</span>
+      </button>
+    </div>
+
+    <!-- Пагинация — самая нижняя строка -->
+    <div id="screen-dots-row">
+      <div id="screen-dots"></div>
+    </div>
+
+    <!-- Виджеты правой панели (скрытые, управляются из настроек) -->
+    <div id="right-widgets-pool" style="display:none">
+      <div id="widget-fuel" class="right-widget">
+        <div class="rw-title">Расход топлива</div>
+        <div class="rw-row">
+          <div class="rw-field"><div class="rw-label">Пробег, км</div><input class="rw-input" id="fuel-km" type="number" placeholder="0" inputmode="decimal"></div>
+          <div class="rw-field"><div class="rw-label">Топливо, л</div><input class="rw-input" id="fuel-liters" type="number" placeholder="0" inputmode="decimal"></div>
+          <div class="rw-field"><div class="rw-label">Цена, ₽/л</div><input class="rw-input" id="fuel-price" type="number" placeholder="0" inputmode="decimal"></div>
+        </div>
+        <div class="rw-results">
+          <div class="rw-result"><div class="rw-result-val" id="fuel-per100">—</div><div class="rw-result-label">л/100км</div></div>
+          <div class="rw-result"><div class="rw-result-val" id="fuel-cost">—</div><div class="rw-result-label">стоимость</div></div>
+          <div class="rw-result"><div class="rw-result-val" id="fuel-per-km">—</div><div class="rw-result-label">₽/км</div></div>
         </div>
       </div>
-      <div class="player-controls">
-        <button class="ctrl-btn" id="btn-prev">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-        </button>
-        <button class="ctrl-btn play" id="btn-play">
-          <svg id="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          <svg id="icon-pause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
-        <button class="ctrl-btn" id="btn-next">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14 5.51 3.64L8 17.14V9.86zM16 6h2v12h-2z"/></svg>
-        </button>
+      <div id="widget-trip" class="right-widget">
+        <div class="rw-title">Поездка</div>
+        <div class="rw-results">
+          <div class="rw-result"><div class="rw-result-val" id="trip-time">0:00</div><div class="rw-result-label">время</div></div>
+          <div class="rw-result"><div class="rw-result-val" id="trip-dist">0.0</div><div class="rw-result-label">км</div></div>
+          <div class="rw-result"><div class="rw-result-val" id="trip-avg">0</div><div class="rw-result-label">ср. км/ч</div></div>
+        </div>
+        <button class="rw-btn" id="trip-reset">Сбросить</button>
+      </div>
+      <div id="widget-log" class="right-widget">
+        <div class="rw-title">Журнал поездок</div>
+        <div id="trip-log-list" class="rw-log-list"></div>
+        <button class="rw-btn" id="btn-log-all" style="display:none">Все поездки →</button>
+      </div>
+    </div>
+
+  </div><!-- /bottom -->
+</div><!-- /root -->
+
+<!-- Пул виджетов (скрытые, перемещаются в экраны через JS) -->
+<div id="widget-pool" style="display:none">
+
+  <!-- Плеер-карточка (portrait) -->
+  <div id="card-player" class="card">
+    <div class="card-title">Сейчас играет</div>
+    <div class="player-top">
+      <img id="album-art2" class="empty" src="img/Artist.png" alt="">
+      <div class="player-info">
+        <div id="track-title2">Нет воспроизведения</div>
+        <div id="track-artist2">—</div>
+        <div id="player-source2"></div>
+      </div>
+    </div>
+    <div class="player-controls" id="player-controls2">
+      <button class="ctrl-btn" id="btn-prev2"><img src="icons/Last.svg" width="20" height="20"></button>
+      <button class="ctrl-btn play" id="btn-play2">
+        <img id="icon-play2"  src="icons/Play.svg"  width="22" height="22">
+        <img id="icon-pause2" src="icons/Pause.svg" width="22" height="22" style="display:none">
+      </button>
+      <button class="ctrl-btn" id="btn-next2"><img src="icons/Next.svg" width="20" height="20"></button>
+    </div>
+    <div class="progress-row">
+      <span class="time-lbl" id="time-cur2">0:00</span>
+      <div class="progress-bar" id="progress-bar2"><div class="progress-fill" id="progress-fill2"></div></div>
+      <span class="time-lbl" id="time-dur2">0:00</span>
+    </div>
+    <canvas id="visualizer2" height="48"></canvas>
+  </div>
+
+  <!-- Приложения -->
+  <div class="card" id="card-apps">
+    <div class="card-title" style="display:flex;align-items:center;justify-content:space-between">
+      <span>Приложения</span>
+      <button class="edit-btn" id="btn-edit-apps"><img src="icons/Setting.svg" width="24" height="24" style="filter:var(--icon-filter);opacity:0.6"></button>
+    </div>
+    <div class="apps-grid">
+      <div class="app-btn" data-pkg="com.desaysv.bluetooth.phone">
+        <div class="app-icon" style="background:#1c7c3a"><img src="icons/Phone.svg"></div>
+        <div class="app-name">Телефон</div>
+      </div>
+      <div class="app-btn" data-pkg="ru.yandex.yandexnavi">
+        <div class="app-icon" style="background:#c45f00"><img src="icons/Navi.svg"></div>
+        <div class="app-name">Навигатор</div>
+      </div>
+      <div class="app-btn" data-pkg="ru.yandex.music">
+        <div class="app-icon" style="background:#b02020"><img src="icons/Music.svg"></div>
+        <div class="app-name">Музыка</div>
+      </div>
+      <div class="app-btn" data-pkg="com.lion.gallery">
+        <div class="app-icon" style="background:#0055b3"><img src="icons/Camera.svg"></div>
+        <div class="app-name">Камера</div>
       </div>
     </div>
   </div>
 
+  <!-- Навигация -->
+  <div class="card" id="card-navi">
+    <div class="card-title">Навигация</div>
+    <div id="navi-active" style="display:none">
+      <div id="navi-maneuver">
+        <div id="navi-arrow"><img id="navi-arrow-img" src="icons/navi/turn_9_straight.svg" alt=""></div>
+        <div id="navi-info">
+          <div id="navi-distance">—</div>
+          <div id="navi-street">—</div>
+        </div>
+        <div id="navi-speed-sign" style="display:none">
+          <span id="navi-speed-limit">—</span>
+        </div>
+      </div>
+      <div id="navi-route-bar">
+        <div id="navi-route-fill"></div>
+        <div id="navi-car"><img src="icons/navi/main_arrow.svg" id="navi-car-img" style="width:48px;height:48px;object-fit:contain;transform:rotate(180deg)"></div>
+      </div>
+      <div id="navi-finish-row" style="display:none">
+        <div style="font-size:16px;color:var(--text-sub);margin-bottom:10px">Вы прибыли в пункт назначения</div>
+        <div id="btn-navi-finish" class="app-btn" style="width:100%;height:auto;padding:14px 20px;flex-direction:row;justify-content:center;gap:10px;background:var(--accent-20);border-color:var(--accent-50)">
+          <span style="font-size:20px">🏁</span>
+          <span style="font-size:15px;color:var(--text)">Завершить маршрут</span>
+        </div>
+      </div>
+      <div id="navi-eta-row">
+        <div class="navi-meta"><span id="navi-eta">—</span><span class="navi-meta-label">лимит скорости</span></div>
+        <div class="navi-meta"><span id="navi-remain">—</span><span class="navi-meta-label">до финиша</span></div>
+      </div>
+    </div>
+    <div id="navi-inactive">
+      <!-- Я.Карты -->
+      <div class="app-btn navi-launch-btn" data-pkg="ru.yandex.yandexmaps" style="width:100%;height:auto;padding:16px 20px;gap:14px;flex-direction:row;justify-content:flex-start">
+        <img src="img/maps_icon.webp" style="width:64px;height:64px;border-radius:14px;flex-shrink:0">
+        <div style="text-align:left">
+          <div style="font-size:15px;color:var(--text)">Яндекс Карты</div>
+          <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Открыть карты</div>
+        </div>
+      </div>
+      <!-- Я.Навигатор — в разработке -->
+      <div class="app-btn navi-launch-btn" style="width:100%;height:auto;padding:16px 20px;gap:14px;flex-direction:row;justify-content:flex-start;opacity:0.45;pointer-events:none;margin-top:10px">
+        <img src="img/navi_icon.webp" style="width:64px;height:64px;border-radius:14px;flex-shrink:0">
+        <div style="text-align:left">
+          <div style="font-size:15px;color:var(--text)">Яндекс Навигатор</div>
+          <div style="font-size:12px;color:var(--accent);margin-top:3px">В разработке</div>
+        </div>
+      </div>
+      <div id="btn-navi-sim" style="display:none"></div>
+    </div>
+    </div>
+  </div>
+
+  <!-- Антирадар -->
+  <div class="card" id="card-radar">
+    <div class="card-title" style="display:flex;align-items:center;justify-content:space-between">
+      <span>Антирадар</span>
+      <label class="toggle" id="radar-toggle-wrap" title="Включить/выключить антирадар">
+        <input type="checkbox" id="radar-toggle">
+        <div class="toggle-track"></div>
+      </label>
+    </div>
+    <div id="radar-wrap">
+      <canvas id="radar-canvas"></canvas>
+      <div id="radar-disabled-overlay">
+        <span style="font-size:14px;color:var(--text-dim)">Антирадар отключён</span>
+      </div>
+    </div>
+    <div id="radar-stats">
+      <div class="radar-stat"><div class="radar-stat-label">Ближайшая</div><div class="radar-stat-val" id="radar-nearest">—</div></div>
+      <div class="radar-stat"><div class="radar-stat-label">Лимит</div><div class="radar-stat-val" id="radar-limit">—</div></div>
+      <div class="radar-stat" style="display:none"><div class="radar-stat-label">Объектов</div><div class="radar-stat-val" id="radar-count">0</div></div>
+    </div>
+    <!-- Знак скорости ближайшей камеры -->
+    <div id="radar-nearest-sign" style="display:none;position:absolute;top:8px;right:8px;width:56px;height:56px;border-radius:50%;border:4px solid #e53935;background:#fff;align-items:center;justify-content:center;flex-direction:column">
+      <span id="radar-nearest-limit" style="font-size:20px;font-weight:700;color:#111;line-height:1"></span>
+    </div>
+  </div>
+
+  <!-- Климат -->
+  <div class="card" id="card-climate">
+    <div class="card-title" style="display:flex;align-items:center;justify-content:space-between">
+      <span>Климат</span>
+      <button class="edit-btn" id="btn-edit-climate"><img src="icons/Setting.svg" width="24" height="24" style="filter:var(--icon-filter);opacity:0.6"></button>
+    </div>
+    <div id="climate-preset-strip"></div>
+    <div class="climate-grid">
+      <div class="cl-btn" id="cl-seat-l" data-on="heat_seat_l" data-off="heat_seat_l_0" data-max="3">
+        <div class="cl-icon"><img src="icons/Seat heated_left.svg"></div>
+        <div class="cl-label">Подогрев<br>водителя</div>
+        <div class="cl-dots"><div class="cl-dot" data-lv="1"></div><div class="cl-dot" data-lv="2"></div><div class="cl-dot" data-lv="3"></div></div>
+      </div>
+      <div class="cl-btn" id="cl-seat-r" data-on="heat_seat_r" data-off="heat_seat_r_0" data-max="3">
+        <div class="cl-icon"><img src="icons/Seat heated_right.svg"></div>
+        <div class="cl-label">Подогрев<br>пассажира</div>
+        <div class="cl-dots"><div class="cl-dot" data-lv="1"></div><div class="cl-dot" data-lv="2"></div><div class="cl-dot" data-lv="3"></div></div>
+      </div>
+      <div class="cl-btn" id="cl-wind" data-on="heat_windshield_on" data-off="heat_windshield_off" data-max="1">
+        <div class="cl-icon"><img src="icons/Windshield defroster.svg"></div>
+        <div class="cl-label">Обогрев<br>лобового</div>
+        <div class="cl-dots"><div class="cl-dot" data-lv="1"></div></div>
+      </div>
+      <div class="cl-btn" id="cl-vent-l" data-on="vent_seat_l" data-off="vent_seat_l_0" data-max="3">
+        <div class="cl-icon"><img src="icons/Seat vent_left.svg"></div>
+        <div class="cl-label">Вентиляция<br>водителя</div>
+        <div class="cl-dots"><div class="cl-dot" data-lv="1"></div><div class="cl-dot" data-lv="2"></div><div class="cl-dot" data-lv="3"></div></div>
+      </div>
+      <div class="cl-btn" id="cl-vent-r" data-on="vent_seat_r" data-off="vent_seat_r_0" data-max="3">
+        <div class="cl-icon"><img src="icons/Seat vent_right.svg"></div>
+        <div class="cl-label">Вентиляция<br>пассажира</div>
+        <div class="cl-dots"><div class="cl-dot" data-lv="1"></div><div class="cl-dot" data-lv="2"></div><div class="cl-dot" data-lv="3"></div></div>
+      </div>
+      <div class="cl-btn" id="cl-rear" data-on="heat_rearwindow_on" data-off="heat_rearwindow_off" data-max="1">
+        <div class="cl-icon"><img src="icons/Rare windshield defroster.svg"></div>
+        <div class="cl-label">Обогрев<br>заднего</div>
+        <div class="cl-dots"><div class="cl-dot" data-lv="1"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Мои приложения -->
+  <div class="card" id="card-my">    <div class="card-title">Мои приложения</div>
+    <div class="my-grid">
+      <div class="my-slot" data-slot="1"><div class="my-slot-icon"><img class="plus-icon" src="icons/Plus.svg"></div><div class="my-slot-name">Добавить</div></div>
+      <div class="my-slot" data-slot="2"><div class="my-slot-icon"><img class="plus-icon" src="icons/Plus.svg"></div><div class="my-slot-name">Добавить</div></div>
+      <div class="my-slot" data-slot="3"><div class="my-slot-icon"><img class="plus-icon" src="icons/Plus.svg"></div><div class="my-slot-name">Добавить</div></div>
+      <div class="my-slot" data-slot="4"><div class="my-slot-icon"><img class="plus-icon" src="icons/Plus.svg"></div><div class="my-slot-name">Добавить</div></div>
+      <div class="my-slot" data-slot="5"><div class="my-slot-icon"><img class="plus-icon" src="icons/Plus.svg"></div><div class="my-slot-name">Добавить</div></div>
+      <div class="my-slot" data-slot="6"><div class="my-slot-icon"><img class="plus-icon" src="icons/Plus.svg"></div><div class="my-slot-name">Добавить</div></div>
+    </div>
+  </div>
+
+  <!-- Быстрые контакты -->
+  <div class="card" id="card-contacts">
+    <div class="card-title">Быстрые контакты</div>
+    <div class="contacts-grid"></div>
+  </div>
+
+  <!-- Медиа-источники -->
+  <!-- удалено: не работает на данном ГУ -->
+
+  <!-- Компас -->
+  <div class="card" id="card-compass">
+    <div class="card-title">Компас</div>
+    <div class="compass-wrap">
+      <canvas id="compass-canvas"></canvas>
+      <div class="compass-info">
+        <div class="compass-stat">
+          <div class="compass-val" id="compass-deg">0°</div>
+          <div class="compass-lbl" id="compass-dir">С</div>
+        </div>
+        <div class="compass-divider"></div>
+        <div class="compass-stat">
+          <div class="compass-val" id="compass-alt">—</div>
+          <div class="compass-lbl">высота</div>
+        </div>
+        <div class="compass-divider"></div>
+        <div class="compass-stat">
+          <div class="compass-val" id="compass-spd">0 км/ч</div>
+          <div class="compass-lbl">скорость</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Заметки -->
+  <div class="card" id="card-notes">
+    <div class="card-title" style="display:flex;align-items:center;justify-content:space-between">
+      <span>Заметки</span>
+      <button class="edit-btn" id="notes-open-btn">Все</button>
+    </div>
+    <div class="notes-input-row">
+      <input class="notes-input" id="notes-input" type="text" placeholder="Новая заметка..." maxlength="120">
+      <button class="notes-add-btn" id="notes-add-btn">＋</button>
+    </div>
+    <div id="notes-list"></div>
+  </div>
+
+  <!-- Профили водителя -->
+  <div class="card" id="card-profiles">
+    <div class="card-title">Профили</div>
+    <div id="profiles-list" class="profiles-list"></div>
+  </div>
+
+</div><!-- /widget-pool -->
+
+<!-- Панель режима редактирования -->
+<div id="edit-mode-bar">
+  <span id="edit-mode-hint">Тап на карточку — переместить · ✕ — скрыть</span>
+  <div style="display:flex;gap:10px">
+    <button id="btn-delete-screen" class="edit-bar-btn edit-bar-btn-danger">Удалить экран</button>
+    <button id="btn-exit-edit" class="edit-bar-btn">Готово</button>
+  </div>
 </div>
 
 <!-- Шторка приложений -->
 <div id="apps-drawer">
   <div class="drawer-header">
-    <span class="drawer-title">Приложения</span>
+    <span class="drawer-title" id="drawer-title-text">Приложения</span>
     <button class="drawer-close" id="drawer-close">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
@@ -107,92 +409,118 @@
 
 <!-- Панель настроек -->
 <div id="settings-panel">
-  <div class="drawer-header">
-    <span class="drawer-title">JQ Lite <span style="font-size:14px;opacity:0.4;font-weight:300">v1.0.0</span></span>
-    <button class="drawer-close" id="btnClose">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
-    <button class="drawer-close" id="settings-close">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
+  <div class="settings-header">
+    <span class="settings-title">JQ Home <span style="font-size:14px;opacity:0.4;font-weight:300">v1.0.0</span></span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="drawer-close" id="settings-close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
   </div>
   <div class="settings-body">
     <div class="settings-section">Внешний вид</div>
     <div class="settings-row">
-      <div><div class="settings-row-label">Акцентный цвет</div></div>
+      <div><div class="settings-row-label">Тема</div><div class="settings-row-sub">Цветовая схема интерфейса</div></div>
+      <div class="theme-btns">
+        <button class="theme-btn" id="theme-black">Тёмная</button>
+        <button class="theme-btn" id="theme-white">Светлая</button>
+        <button class="theme-btn" id="theme-auto">Авто (система)</button>
+        <button class="theme-btn" id="theme-sun">Авто (закат)</button>
+      </div>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-row-label">Акцентный цвет</div><div class="settings-row-sub">Цвет кнопок и элементов управления</div></div>
       <div class="accent-btns" id="accent-btns"></div>
     </div>
-    <div class="settings-row" style="flex-direction:column;align-items:flex-start;gap:14px">
-      <div class="settings-row-label">Анимация фона</div>
-      <div id="bg-anim-grid" style="display:flex;flex-wrap:wrap;gap:10px;width:100%"></div>
-    </div>
-    <div style="padding:4px 0">
-      <button id="btn-donate" style="width:100%;padding:14px;border-radius:14px;background:var(--accent);border:none;color:#fff;font-size:15px;cursor:pointer;font-weight:500;transition:opacity 0.2s">
-        Поддержать автора
-      </button>
-    </div>
-    <div class="settings-section" style="margin-top:8px">Голосовое управление</div>
     <div class="settings-row">
-      <div><div class="settings-row-label">Активация по слову</div><div class="settings-row-sub" style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px">Постоянно слушает триггер</div></div>
-      <label class="lite-toggle"><input type="checkbox" id="wake-enabled"><div class="lite-toggle-track"></div></label>
-    </div>
-    <div class="settings-row" id="wake-word-row">
-      <div><div class="settings-row-label">Кодовое слово</div></div>
-      <input id="wake-word-input" type="text" placeholder="поехали"
-        style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:8px 14px;color:#fff;font-size:14px;font-family:inherit;outline:none;width:160px;text-align:center">
-    </div>
-    <div class="settings-section" style="margin-top:8px">Скоростной режим (&gt;20 км/ч)</div>    <div class="settings-row">
-      <div><div class="settings-row-label">Свернуть Климат</div><div class="settings-row-sub" style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px">При скорости более 20 км/ч</div></div>
-      <label class="lite-toggle"><input type="checkbox" id="speed-collapse-climate" checked><div class="lite-toggle-track"></div></label>
+      <div><div class="settings-row-label">Обои</div><div class="settings-row-sub">Выбрать изображение фона</div></div>
+      <button class="wallpaper-btn" id="btn-wallpaper">Выбрать</button>
     </div>
     <div class="settings-row">
-      <div><div class="settings-row-label">Свернуть Приложения</div><div class="settings-row-sub" style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:2px">При скорости более 20 км/ч</div></div>
-      <label class="lite-toggle"><input type="checkbox" id="speed-collapse-apps" checked><div class="lite-toggle-track"></div></label>
+      <div><div class="settings-row-label">Parallax обоев</div><div class="settings-row-sub">Движение фона по акселерометру</div></div>
+      <label class="toggle"><input type="checkbox" id="toggle-parallax" checked><div class="toggle-track"></div></label>
     </div>
+    <div class="settings-row">
+      <div><div class="settings-row-label">Визуализатор волн</div><div class="settings-row-sub">Анимация в плеере во время воспроизведения</div></div>
+      <label class="toggle"><input type="checkbox" id="toggle-visualizer" checked><div class="toggle-track"></div></label>
+    </div>
+    <div class="settings-section" style="margin-top:8px">Экран</div>
+    <div class="settings-row">
+      <div><div class="settings-row-label">Яркость</div><div class="settings-row-sub">Яркость дисплея (0–255)</div></div>
+      <div style="flex:1;display:flex;align-items:center;gap:12px">
+        <div class="custom-slider" id="brightness-slider" style="flex:1">
+          <div class="slider-track">
+            <div class="slider-fill" id="brightness-fill" style="width:50%"></div>
+            <div class="slider-dots"></div>
+            <div class="slider-thumb" id="brightness-thumb" style="left:50%"></div>
+          </div>
+        </div>
+        <span id="brightness-val" style="font-size:13px;color:rgba(255,255,255,0.5);min-width:36px;text-align:right">50%</span>
+      </div>
+    </div>
+    <div class="settings-section" style="margin-top:8px">Звуки</div>
+    <div class="settings-row">
+      <div><div class="settings-row-label">Звуки интерфейса</div><div class="settings-row-sub">Звуковая обратная связь</div></div>
+      <label class="toggle"><input type="checkbox" id="toggle-sounds" checked><div class="toggle-track"></div></label>
+    </div>
+    <div id="sound-options">
+      <div class="settings-row">
+        <div><div class="settings-row-label">Громкость</div><div class="settings-row-sub">Уровень звуков интерфейса</div></div>
+        <div style="flex:1;">
+          <div class="custom-slider" id="sound-volume-slider">
+            <div class="slider-track">
+              <div class="slider-fill" id="slider-fill"></div>
+              <div class="slider-dots"></div>
+              <div class="slider-thumb" id="slider-thumb"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="settings-row">
+        <div><div class="settings-row-label">Стиль звуков</div><div class="settings-row-sub">Характер звуковых эффектов</div></div>
+        <div class="theme-btns">
+          <button class="theme-btn" id="sound-minimal">Минимал</button>
+          <button class="theme-btn active" id="sound-standard">Стандарт</button>
+          <button class="theme-btn" id="sound-futuristic">Футуристик</button>
+        </div>
+      </div>
+    </div>
+    <div class="settings-section" style="margin-top:8px">Поведение</div>
+    <div class="settings-row">
+      <div><div class="settings-row-label">Виджет погоды</div><div class="settings-row-sub">Показывать погоду в верхнем левом углу</div></div>
+      <label class="toggle"><input type="checkbox" id="toggle-weather" checked><div class="toggle-track"></div></label>
+    </div>
+    <div class="settings-row">
+      <div><div class="settings-row-label">Скоростной режим</div><div class="settings-row-sub">Скрывать карточки при скорости &gt;20 км/ч</div></div>
+      <label class="toggle"><input type="checkbox" id="toggle-speed-mode" checked><div class="toggle-track"></div></label>
+    </div>
+
+    <!-- Поддержать разработчика -->
+    <div class="settings-section" style="margin-top:8px">Поддержать разработчика</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div style="background:var(--overlay-row);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;color:var(--overlay-text-sub);text-transform:uppercase;letter-spacing:0.5px">💳 Карта</span>
+        <span style="font-size:17px;font-weight:500;color:var(--overlay-text);letter-spacing:1px">2204 3211 0130 6272</span>
+      </div>
+      <div style="background:var(--overlay-row);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;color:var(--overlay-text-sub);text-transform:uppercase;letter-spacing:0.5px">🪙 USDT TRC20</span>
+        <span style="font-size:17px;font-weight:500;color:var(--overlay-text);word-break:break-all;font-family:monospace">TB6fJPUeVvPvp1nD7zZhj7HZCAAbzA5cjy</span>
+      </div>
+      <div style="background:var(--overlay-row);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:13px;color:var(--overlay-text-sub);text-transform:uppercase;letter-spacing:0.5px">✈️ Telegram</span>
+        <span style="font-size:17px;font-weight:500;color:var(--overlay-text)">@mkkutuz</span>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- Шторка благодарности -->
-<div id="donate-drawer" class="editor-drawer">
-  <div class="drawer-header">
-    <span class="drawer-title" style="font-size:20px">Поддержать автора</span>
-    <button class="drawer-close" id="donate-close">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-    </button>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:28px;overflow-y:auto;flex:1;padding-bottom:20px">
-    <p style="font-size:16px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:700px">
-      Если вам нравится JQ Lite и вы хотите поддержать автора — буду очень признателен 🙏
-    </p>
-    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px;display:flex;gap:28px;align-items:center">
-      <img id="qr-usdt" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=tron:TB6fJPUeVvPvp1nD7zZhj7HZCAAbzA5cjy&bgcolor=1a1c24&color=06b6d4&margin=10" width="140" height="140" style="border-radius:12px;flex-shrink:0" alt="USDT QR">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">₮</span>
-          <span style="font-size:20px;font-weight:500">USDT TRC-20</span>
-          <span class="donate-badge">Крипто</span>
-        </div>
-        <div style="font-family:monospace;font-size:13px;color:rgba(255,255,255,0.5);word-break:break-all;background:rgba(0,0,0,0.3);padding:12px 16px;border-radius:10px;user-select:all">TB6fJPUeVvPvp1nD7zZhj7HZCAAbzA5cjy</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.35)">Отсканируйте QR или скопируйте адрес</div>
-      </div>
-    </div>
-    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px;display:flex;gap:28px;align-items:center">
-      <img id="qr-card" src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=2204321101306272&bgcolor=1a1c24&color=06b6d4&margin=10" width="140" height="140" style="border-radius:12px;flex-shrink:0" alt="Card QR">
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">💳</span>
-          <span style="font-size:20px;font-weight:500">Банковская карта</span>
-          <span class="donate-badge">RU</span>
-        </div>
-        <div style="font-family:monospace;font-size:20px;color:rgba(255,255,255,0.7);letter-spacing:3px;background:rgba(0,0,0,0.3);padding:12px 16px;border-radius:10px;user-select:all">2204 3211 0130 6272</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.35)">Перевод по номеру карты</div>
-      </div>
-    </div>
-    <p style="font-size:14px;color:rgba(255,255,255,0.25);text-align:center">Спасибо, что пользуетесь JQ Lite</p>
-  </div>
+<div id="speed-pill">
+  <span id="speed-val">0</span>
+  <span id="speed-unit">км/ч</span>
 </div>
 
-<!-- Шторка редактирования климата -->
+<!-- Шторки редактирования -->
 <div id="climate-editor" class="editor-drawer">
   <div class="drawer-header">
     <span class="drawer-title">Настройка климата</span>
@@ -200,98 +528,91 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
   </div>
-  <div class="editor-hint">Выберите до 7 функций для отображения</div>
+  <div class="editor-hint">Выберите до 6 функций для отображения в карточке</div>
   <div id="climate-all-grid" class="editor-grid"></div>
 </div>
 
-<!-- AI Чат -->
-<div id="ai-window">
-  <div id="ai-titlebar">
-    <div id="ai-title">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.7"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-      AI Ассистент
-    </div>
-    <div style="display:flex;gap:6px;align-items:center">
-      <button id="ai-tts-btn" title="Голосовые ответы">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-      </button>
-      <button id="ai-minimize">−</button>
-      <button id="ai-close">✕</button>
-    </div>
-  </div>
-  <div id="ai-messages"></div>
-  <div id="ai-input-row">
-    <button id="ai-voice-btn" title="Голосовой ввод">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
-    </button>
-    <input id="ai-input" type="text" placeholder="Спросите что-нибудь..." autocomplete="off">
-    <button id="ai-send">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+<div id="apps-editor" class="editor-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Настройка приложений</span>
+    <button class="drawer-close" id="apps-editor-close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
     </button>
   </div>
+  <div class="editor-hint">Выберите до 4 приложений для отображения в карточке</div>
+  <div id="apps-editor-grid" class="apps-grid" style="margin-top:16px"></div>
 </div>
 
-<!-- AI пилюля -->
-<div id="ai-pill">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-  AI
+<div id="trip-log-drawer" class="editor-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Все поездки</span>
+    <button class="drawer-close" id="trip-log-close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+  <div id="trip-log-full" style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1"></div>
 </div>
 
-<!-- Голосовое управление -->
-<div id="voice-overlay">
-  <div id="voice-top-row">
-    <div id="voice-icon">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-      </svg>
-    </div>
-    <div id="voice-status">Слушаю...</div>
-    <button id="voice-cancel">✕</button>
+<div id="preset-editor" class="editor-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title" id="preset-editor-title">Новый пресет</span>
+    <button class="drawer-close" id="preset-editor-close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
   </div>
-  <div id="voice-transcript"></div>
-  <div id="voice-result"></div>
-</div>
-
-<!-- Плавающее окно карты -->
-<div id="map-window">
-  <div id="map-titlebar">
-    <div id="map-title">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.7"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
-      Яндекс Карты
-    </div>
-    <div id="map-controls">
-      <button id="map-locate" title="Моё местоположение">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0 0 13 3.06V1h-2v2.06A8.994 8.994 0 0 0 3.06 11H1v2h2.06A8.994 8.994 0 0 0 11 20.94V23h2v-2.06A8.994 8.994 0 0 0 20.94 13H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-      </button>
-      <button id="map-minimize">−</button>
-      <button id="map-close">✕</button>
-    </div>
+  <div class="preset-editor-meta">
+    <div id="preset-emoji-picker" class="preset-emoji-picker"></div>
+    <input id="preset-editor-name" class="preset-name-input" type="text" placeholder="Название пресета" maxlength="20">
   </div>
-  <div id="map-route-bar">
-    <div id="map-route-input-wrap">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.5;flex-shrink:0"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-      <input id="map-route-input" type="text" placeholder="Куда едем?" autocomplete="off" spellcheck="false">
-      <button id="map-route-clear" style="display:none">✕</button>
-    </div>
-    <button id="map-route-go">Маршрут</button>
-    <div id="map-route-info"></div>
-  </div>
-  <div id="map-body">
-    <div id="ymap"></div>
-    <div id="map-loading">
-      <div id="map-spinner"></div>
-      <div style="margin-top:12px;font-size:14px;color:rgba(255,255,255,0.5)">Загрузка карты...</div>
-    </div>
+  <div id="preset-editor-controls" class="preset-editor-controls"></div>
+  <div class="preset-editor-footer">
+    <button id="preset-editor-delete" class="preset-btn-delete">Удалить пресет</button>
+    <button id="preset-editor-save" class="preset-btn-save">Сохранить</button>
   </div>
 </div>
 
-<!-- Свёрнутая пилюля карты -->
-<div id="map-pill">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
-  Карта
+<!-- Шторка заметок -->
+<div id="notes-drawer" class="editor-drawer">
+  <div class="drawer-header">
+    <span class="drawer-title">Заметки</span>
+    <button class="drawer-close" id="notes-drawer-close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+  <div id="notes-drawer-list" style="display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1"></div>
 </div>
 
-<script src="app.js"></script>
-<script src="bg.js"></script>
+<!-- Шторка поддержки разработчика удалена — реквизиты в настройках -->
+<!-- Попап громкости -->
+<div id="volume-popup" class="volume-popup-box">
+  <div class="volume-row">
+    <button id="vol-minus" class="vol-btn">−</button>
+    <div class="vol-track-wrap">
+      <div id="volume-track" class="vol-track">
+        <div id="volume-fill" class="vol-fill" style="width:50%"></div>
+        <div class="vol-dots" id="vol-dots"></div>
+        <div id="volume-thumb" class="vol-thumb" style="left:50%"></div>
+      </div>
+    </div>
+    <span id="volume-val-label" class="vol-label">50%</span>
+    <button id="vol-plus" class="vol-btn">＋</button>
+  </div>
+</div>
+
+<script src="js/sounds.js"></script><script src="js/core.js"></script>
+<script src="js/player.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/navi.js"></script>
+<script src="js/radar.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/widgets.js"></script>
+<script src="js/climate-presets.js"></script>
+<script src="js/contacts.js"></script>
+<script src="js/compass.js"></script>
+<script src="js/notes.js"></script>
+<script src="js/profiles.js"></script>
+<script src="js/screens.js"></script>
+<script src="js/events.js"></script>
 </body>
 </html>
